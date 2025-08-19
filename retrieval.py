@@ -21,6 +21,8 @@ from livekit.agents import (
 from livekit.agents.voice.agent import ModelSettings
 from livekit.plugins import deepgram, openai, silero
 
+import json
+
 load_dotenv()
 
 # check if storage already exists
@@ -37,6 +39,8 @@ else:
     storage_context = StorageContext.from_defaults(persist_dir=PERSIST_DIR)
     index = load_index_from_storage(storage_context)
 
+data = json.load(open("data/sirius_raw_data_clean.json"))
+print(f"Raw product count: {len(data)}")
 
 class RetrievalAgent(Agent):
     def __init__(self, index: VectorStoreIndex):
